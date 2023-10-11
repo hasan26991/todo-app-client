@@ -21,7 +21,8 @@ import {
 } from "@mui/material";
 
 Home.getInitialProps = async (ctx: NextPageContext) => {
-  const res = await axios.get(`${process.env.BASE_URL}/user/currentuser`, {
+  const local = "https://todo-add-server.onrender.com";
+  const res = await axios.get(`${local}/user/currentuser`, {
     headers: ctx.req?.headers,
     withCredentials: true,
   });
