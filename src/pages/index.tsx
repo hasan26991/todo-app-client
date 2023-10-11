@@ -21,7 +21,7 @@ import {
 } from "@mui/material";
 
 Home.getInitialProps = async (ctx: NextPageContext) => {
-  const res = await axios.get("http://localhost:3005/user/currentuser", {
+  const res = await axios.get(`${process.env.BASE_URL}/user/currentuser`, {
     headers: ctx.req?.headers,
     withCredentials: true,
   });

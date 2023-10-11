@@ -15,7 +15,7 @@ export enum RequestTags {
 const tagTypes = Object.values(RequestTags);
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: "http://localhost:3005/",
+  baseUrl: `${process.env.BASE_URL}/`,
   credentials: "include",
 });
 
