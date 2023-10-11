@@ -135,7 +135,7 @@ export default function Home() {
                       <Image
                         height={30}
                         width={30}
-                        src="/assets/delete.svg"
+                        src="/assets/Delete.svg"
                         alt="delete icon"
                       ></Image>
                     </IconButton>
