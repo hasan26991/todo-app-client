@@ -16,7 +16,7 @@ const tagTypes = Object.values(RequestTags);
 
 const baseQuery = fetchBaseQuery({
   baseUrl: `${process.env.BASE_URL}/`,
-  credentials: "include",
+  // credentials: "include",
 });
 
 export const baseApi = createApi({

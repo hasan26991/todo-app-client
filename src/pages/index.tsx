@@ -19,12 +19,11 @@ import {
   InputBase,
   Typography,
 } from "@mui/material";
-// force deploy
 
 Home.getInitialProps = async (ctx: NextPageContext) => {
   const res = await axios.get(`${process.env.BASE_URL}/user/currentuser`, {
     headers: ctx.req?.headers,
-    withCredentials: true,
+    // withCredentials: true,
   });
   if (!res.data.currentUser) {
     if (typeof window == "undefined") {
