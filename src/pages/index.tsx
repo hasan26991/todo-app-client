@@ -20,19 +20,19 @@ import {
   Typography,
 } from "@mui/material";
 
-// Home.getInitialProps = async (ctx: NextPageContext) => {
-//   const res = await axios.get(`${process.env.BASE_URL}/user/currentuser`, {
-//     headers: ctx.req?.headers,
-//     withCredentials: true,
-//   });
-//   if (!res.data.currentUser) {
-//     if (typeof window == "undefined" && ctx.res) {
-//       ctx.res.writeHead(302, { Location: "/auth/login" });
-//       ctx.res.end();
-//     }
-//   }
-//   return {};
-// };
+Home.getInitialProps = async (ctx: NextPageContext) => {
+  const res = await axios.get(`${process.env.BASE_URL}/user/currentuser`, {
+    headers: ctx.req?.headers,
+    withCredentials: true,
+  });
+  // if (!res.data.currentUser) {
+  //   if (typeof window == "undefined" && ctx.res) {
+  //     ctx.res.writeHead(302, { Location: "/auth/login" });
+  //     ctx.res.end();
+  //   }
+  // }
+  return {};
+};
 
 export default function Home() {
   const [showFilteredTodos, setShowFilteredTodos] = useState(false);
