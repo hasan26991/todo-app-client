@@ -47,6 +47,8 @@ export const useTodoApi = () => {
     return [];
   }, [data]);
 
+  const completedTodos = (data?.length || 0) - filteredTodos.length;
+
   return {
     todos: data ?? [],
     addTodo,
@@ -59,5 +61,6 @@ export const useTodoApi = () => {
       isLoadingAddTodo ||
       isLoadingDeleteTodo ||
       isLoadingUpdateTodo,
+    completedTodos,
   };
 };

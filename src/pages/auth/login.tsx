@@ -10,10 +10,10 @@ import {
   Typography,
   Container,
 } from "@mui/material";
-// import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CircularProgress from "@/components/CircularProgress";
 
 export default function Login() {
-  const { login, isSuccessLogin, loginErrors } = useUserApi();
+  const { login, isSuccessLogin, loginErrors, isLoadingLogin } = useUserApi();
   const router = useRouter();
 
   const handleLogin = (event: React.ChangeEvent<HTMLFormElement>) => {
@@ -96,6 +96,7 @@ export default function Login() {
             </Button>
           </Box>
         </Box>
+        {isLoadingLogin && <CircularProgress />}
       </Box>
     </Container>
   );

@@ -1,12 +1,6 @@
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { REHYDRATE } from "redux-persist";
-import {
-  BaseQueryFn,
-  FetchArgs,
-  fetchBaseQuery,
-  FetchBaseQueryError,
-  FetchBaseQueryMeta,
-} from "@reduxjs/toolkit/dist/query";
+import { fetchBaseQuery } from "@reduxjs/toolkit/dist/query";
 
 export enum RequestTags {
   Todos = "Todos",

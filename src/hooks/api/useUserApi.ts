@@ -8,11 +8,22 @@ import { useMemo } from "react";
 export const useUserApi = () => {
   const [
     login,
-    { isSuccess: isSuccessLogin, isError: isErrorLogin, error: errorLogin },
+    {
+      isSuccess: isSuccessLogin,
+      isError: isErrorLogin,
+      error: errorLogin,
+      isLoading: isLoadingLogin,
+    },
   ] = useLoginUserMutation();
+
   const [
     signup,
-    { isSuccess: isSuccessSignup, isError: isErrorSignup, error: errorSignup },
+    {
+      isSuccess: isSuccessSignup,
+      isError: isErrorSignup,
+      error: errorSignup,
+      isLoading: isLoadingSignup,
+    },
   ] = useSignupUserMutation();
 
   const loginErrors = useMemo(() => {
@@ -39,6 +50,8 @@ export const useUserApi = () => {
     signup,
     isSuccessSignup,
     isErrorSignup,
+    isLoadingLogin,
+    isLoadingSignup,
     signupErrors: signupErrors ?? [],
     loginErrors: loginErrors ?? [],
   };

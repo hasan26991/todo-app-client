@@ -3,26 +3,12 @@ import { useState } from "react";
 import { useTodoApi } from "@/hooks/api/useTodoApi";
 import CircularProgress from "@/components/CircularProgress";
 import { NextPageContext } from "next";
-import Image from "next/image";
-import { VisibilityOff } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  Checkbox,
-  ListItemText,
-  ListItemIcon,
-  ListItemButton,
-  List,
-  ListItem,
-  IconButton,
-  Paper,
-  InputBase,
-  Typography,
-} from "@mui/material";
+import { VisibilityOff, Visibility } from "@mui/icons-material";
+import { Box, Button, List, Paper, InputBase, Typography } from "@mui/material";
+import TodosList from "@/components/TodosList";
 
 Home.getInitialProps = async (ctx: NextPageContext) => {
   const res = await axios.get(`${process.env.BASE_URL}/user/currentuser`, {
-    // headers: ctx.req?.headers,
     withCredentials: true,
   });
   if (!res.data.currentUser) {
@@ -37,15 +23,7 @@ Home.getInitialProps = async (ctx: NextPageContext) => {
 export default function Home() {
   const [showFilteredTodos, setShowFilteredTodos] = useState(false);
 
-  const {
-    todos,
-    addTodo,
-    deleteTodo,
-    updateTodo,
-    addTodoErrors,
-    filteredTodos,
-    isLoading,
-  } = useTodoApi();
+  const { addTodo, addTodoErrors, completedTodos, isLoading } = useTodoApi();
 
   const handleAddTodo = (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -79,12 +57,17 @@ export default function Home() {
             mt: "4vh",
             mb: "4vh",
             "@media (max-width: 780px)": {
-              // justifyContent: "flex-start",
-              // flexDirection: "column-reverse",
+              justifyContent: "flex-start",
+              flexDirection: "column-reverse",
+              gap: "1rem",
             },
           }}
         >
-          <Typography sx={{ fontSize: "0.85rem" }}>6 Completed</Typography>
+          <Typography
+            sx={{ fontSize: "0.85rem", display: "flex", alignItems: "end" }}
+          >
+            {`${completedTodos} Completed`}
+          </Typography>
           <Button
             onClick={() => {
               setShowFilteredTodos(!showFilteredTodos);
@@ -96,12 +79,11 @@ export default function Home() {
               p: "0.8rem 2rem",
               fontSize: "1rem",
               fontWeight: 400,
-              // width: "200px",
+              width: "250px",
             }}
-            // variant="text"
-            startIcon={<VisibilityOff />}
+            startIcon={showFilteredTodos ? <Visibility /> : <VisibilityOff />}
           >
-            Hide Completed
+            {showFilteredTodos ? "Show Completed" : "Hide Completed"}
           </Button>
         </Paper>
         <Box
@@ -116,72 +98,10 @@ export default function Home() {
             sx={{
               bgcolor: "background.paper",
               overflow: "scroll",
-              // flexGrow: 1,
               height: "100%",
             }}
           >
-            {todos.map((todo) => {
-              return (
-                <ListItem
-                  key={todo.id}
-                  secondaryAction={
-                    <IconButton
-                      edge="end"
-                      aria-label="comments"
-                      onClick={() => {
-                        deleteTodo({ id: todo.id });
-                      }}
-                    >
-                      <Image
-                        height={30}
-                        width={30}
-                        src="/assets/Delete.svg"
-                        alt="delete icon"
-                      ></Image>
-                    </IconButton>
-                  }
-                  disablePadding
-                >
-                  <ListItemButton
-                    role={undefined}
-                    onClick={() => {
-                      updateTodo({ id: todo.id });
-                    }}
-                    dense
-                  >
-                    <ListItemIcon sx={{}}>
-                      <Checkbox
-                        sx={{
-                          "& .MuiSvgIcon-root": { fontSize: "1.8rem" },
-                          color: "#DADADA",
-                          "&.Mui-checked": {
-                            color: "#29ABE2",
-                          },
-                        }}
-                        edge="start"
-                        checked={todo.completed}
-                        tabIndex={-1}
-                        disableRipple
-                        inputProps={{ "aria-labelledby": todo.message }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText
-                      primaryTypographyProps={{
-                        style: {
-                          fontSize: "1rem",
-                          fontFamily: "inherit",
-                          textDecorationLine: todo.completed
-                            ? "line-through"
-                            : "none",
-                        },
-                      }}
-                      id={todo.id}
-                      primary={todo.message}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
+            <TodosList showFilteredTodos={showFilteredTodos} />
           </List>
         </Box>
         {addTodoErrors.map((error) => {
@@ -221,11 +141,32 @@ export default function Home() {
             padding: "12px 24px",
             fontSize: "1rem",
             fontFamily: "inherit",
+            "@media (max-width: 780px)": {
+              display: "none",
+            },
           }}
           type="submit"
           variant="text"
         >
           Add New Note
+        </Button>
+        <Button
+          sx={{
+            bgcolor: "white",
+            color: "black",
+            mr: "30px",
+            borderRadius: "9px",
+            padding: "12px 24px",
+            fontSize: "1rem",
+            fontFamily: "inherit",
+            "@media (min-width: 780px)": {
+              display: "none",
+            },
+          }}
+          type="submit"
+          variant="text"
+        >
+          Add
         </Button>
       </Paper>
     </Box>

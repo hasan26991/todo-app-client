@@ -10,9 +10,11 @@ import {
   Typography,
   Container,
 } from "@mui/material";
+import CircularProgress from "@/components/CircularProgress";
 
 export default function Signup() {
-  const { signup, isSuccessSignup, signupErrors } = useUserApi();
+  const { signup, isSuccessSignup, signupErrors, isLoadingSignup } =
+    useUserApi();
   const [passwordError, setPasswordError] = useState("");
   const router = useRouter();
 
@@ -105,6 +107,7 @@ export default function Signup() {
             </Button>
           </Box>
         </Box>
+        {isLoadingSignup && <CircularProgress />}
       </Box>
     </Container>
   );
