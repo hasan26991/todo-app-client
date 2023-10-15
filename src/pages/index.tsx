@@ -154,7 +154,7 @@ export default function Home() {
           sx={{
             bgcolor: "white",
             color: "black",
-            mr: "30px",
+            mr: "10px",
             borderRadius: "9px",
             padding: "12px 24px",
             fontSize: "1rem",
